@@ -1,5 +1,5 @@
 /**
- * @class
+ * @class ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Day1
  * what is javascript, ECMAScript, ES2015, ES6
  * javascript vs. nodejs vs. ECMAScript
  *
@@ -52,7 +52,7 @@
 // console.log(typeof 1 + ''); //
 
 // var num = 753245; // 542357
-// var numreverse = +(num + '').split('').reverse().join('');
+// var numreverse = +[...(num + '')].reverse().join('');
 // console.log(typeof numreverse);
 
 // console.log(NaN == NaN);
@@ -132,8 +132,6 @@
 
 // p.name = "hello";
 
-
-
 // class Employee extends Person {
 //   constructor(name, age, company) {
 //     super(name, age);
@@ -168,3 +166,222 @@
 // e.printCompany();
 
 // Array.prototype.myForEach = function
+
+/**
+ * @class ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Day2
+ * loop in JS: array, object
+ * MyForeach, MyMap, MyFilter, MyReduce
+ *
+ * destructure
+ *
+ * rest parameter vs. spread operator
+ *
+ * object copy
+ */
+
+// //* destructure
+// const {name, EmployeeIdInAntra: id} = {
+//   name: 'Jojo',
+//   EmployeeIdInAntra: 'front'
+// };
+// // const arr = ['hello', 1, true]
+// const {h, num, boo} = arr;
+
+// console.log(boo);
+// console.log(id);
+
+//* rest parameter vs. spread operator
+// const arr = [1, 2, 4];
+// const arrcopy = [0, ...arr, 5];
+// let obj = {
+//   name: 'Jojo',
+//   age: 12
+// };
+// obj = {
+//   ...obj,
+//   company: 'Antra'
+// };
+
+// console.log(obj);
+// console.log(arrcopy);
+
+// const arr = [...'abcd'];
+
+// function foo(num, ...args) {
+//   console.log(args);
+// }
+// foo(1, 2, 3, 4, 5, true, 'hello');
+
+// function foo(...args) {
+//   return 1 + 2 + a + b + c + d + e;
+// }
+// function bar(a, b) {
+//   return 67 + a;
+// }
+// function sameAsFoo(cb) {
+//   return function(...args) { // rest
+//     // console.log(cb);
+//     return cb(...args) // spread
+//   }
+// }
+// const sf = sameAsFoo(bar);
+// console.log(sf(1));
+
+//highorder function; curring
+
+// const arr = [1, 2, 3];
+
+// const tar = function(n) {
+
+// return function(num) {
+//     console.log(num + n);
+//   } [n]
+
+// }
+// arr.forEach(tar(10));
+
+// function foo() {
+//   return 5;
+// }
+
+// const target = function (a, b) {
+// 	console.log(a + b);
+// };
+// const target1 = function (a, b, c) {
+// 	console.log(a + b * c);
+// };
+// const fn = limitedFn(4, target1);
+
+// fn(2, 3, 0); // 5            [num: 1]
+// fn(4, 5, 6); // 9            [limite: 2]
+// fn(2, 5, 7); // over limited [limite: 3]
+// fn(4, 7, 4); // over limited
+// fn(3, 5, 5); // over limited
+// fn(4, 6, 3); // over limited
+
+// /*
+//   @param [number, function] num, cb
+//   @return [function]
+// */
+// function limitedFn(num, cb) {
+// 	// let limit = -1;
+
+// 	return function (...args) {
+
+// 		if (num-- > 0) {
+// 			return cb(...args);
+// 		} else {
+// 			console.log("Over Limit");
+// 		}
+// 	};
+// }
+
+// * loop in JS: array, object
+
+// // console.log(arr['0']);
+
+// for (let i = 0; i < arr.length; i++) {
+//   break;
+//   console.log(arr[i]);
+// }
+// const obj = {
+// 	name: "Jojo",
+// 	age: 18,
+// };
+
+// Object.entries(obj).forEach(([key, val]) => {
+// 	console.log(key, val);
+// });
+
+// // obj.name
+// // obj['name']
+// for (const val in obj) {
+// 	console.log(obj[val]);
+// }
+// for (const i in arr) {
+//   console.log(arr[i]);
+// }
+// for (let ele of arr) {
+//   console.log(ele);
+// }
+// const arr = new Array(41, 21, 35);
+
+// Array.prototype.myReduce = function (...args) {
+//   console.log(args);
+// 	let [acc, index] = args.length === 1
+//     ? [this[0], 1]
+//     : [args[1], 0];
+
+// 	for (let i = index; i < this.length; i++) {
+// 		acc = args[0](acc, this[i], i, this);
+// 	}
+// 	return acc;
+// };
+
+// const numbers = [175, 50, 25];
+// const res = numbers.myReduce((acc, cur) => {
+//   return acc - cur;
+// });
+// console.log(res);
+
+// console.log(
+//   arr.reduce(function (ele, i, self) {
+//     return ele > 40;
+//   })
+// );
+
+// const str = 'abc';
+// // ['a', 'b', 'c']
+// console.log([...str].myReduce((acc, ele) => acc + ele + ele, '')); // 'aabbcc';
+// //'' + 'a' + 'a' = 'aa' + b + b = aabb + c + c = aabbcc
+
+// function foo(arr) {
+// 	return arr.myReduce(
+// 		(acc, cur) => ({ ...acc, [cur.name]: cur.age }),
+// 		{}
+// 	);
+// 	// return arr.reduce((acc, cur) => {
+// 	//   acc[cur.name] = cur.age;
+// 	//   return acc;
+// 	// }, {});
+// 	// const obj = {};
+// 	// for (let ele of arr) {
+// 	//   obj[ele.name] = ele.age;
+// 	// }
+// 	// return obj;
+// }
+// const arr = [
+// 	{ name: "TT", age: 12 },
+// 	{ name: "DD", age: 32 },
+// 	{ name: "RR", age: 82 },
+// ];
+// console.log(foo(arr));
+// console.log({
+// 	TT: 12,
+// 	DD: 32,
+// 	RR: 82,
+// });
+
+// console.log(arr);
+
+// Array.prototype.myForEach = function (cb) {
+// 	for (let i = 0; i < this.length; i++) {
+// 		cb(this[i], i, this);
+// 	}
+// };
+// Array.prototype.myMap = function (cb) {
+//   const map = [];
+// 	for (let i = 0; i < this.length; i++) {
+// 		map.push(cb(this[i], i, this));
+// 	}
+//   return map;
+// };
+// Array.prototype.myFilter = function (cb) {
+//   const map = [];
+// 	for (let i = 0; i < this.length; i++) {
+// 		if(cb(this[i], i, this)) {
+//       map.push(this[i]);
+//     }
+// 	}
+//   return map;
+// };
