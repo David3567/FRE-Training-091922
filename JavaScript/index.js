@@ -1,4 +1,4 @@
-console.clear();
+// console.clear();
 /**
  * @class ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Day1
  * what is javascript, ECMAScript, ES2015, ES6
@@ -135,7 +135,7 @@ console.clear();
 
 // class Employee extends Person {
 //   constructor(name, age, company) {
-//     super(name, age);
+// super(name, age);
 //     this.company = company;
 //   }
 
@@ -153,7 +153,7 @@ console.clear();
 // };
 
 // function Employee(name, age, company) {
-// 	Person.call(this, name, age);
+// 	Person.apply(this, [name, age]);
 // 	this.company = company;
 // }
 // Employee.prototype = Object.create(Person.prototype);
@@ -387,7 +387,7 @@ console.clear();
 //   return map;
 // };
 
-/** @class
+/** @class ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Day3
  * iife
  * closure
  * currying
@@ -400,3 +400,227 @@ console.clear();
  * event loop
  */
 
+//^ ~~~~~~interview question~~~~~~~~~~~~
+// const first = [
+//     { userid: 2, name: 'Velen' },
+//     { userid: 56, name: 'Illidan' },
+//     { userid: 23, name: 'Muradin' },
+//     { userid: 12, name: 'Sylvanas' },
+//     { userid: 44, name: 'Cenarius' },
+//     { userid: 4, name: 'Gul\'Dan' }
+// ];
+// const second = [
+//     { userid: 2, role: 'Mage' },
+//     { userid: 4, role: 'Worlock' },
+//     { userid: 56, role: 'Demon Hunter' },
+//     { userid: 66, role: 'Druid' },
+//     { userid: 87, role: 'Shaman' },
+//     { userid: 12, role: 'Hunter' },
+// ];
+
+// function mergeList(...args) {
+//     let arr = []
+//     for(let i=0; i < args.length; i++){
+//         arr.push(...args[i])
+//     }
+//     const map = {};
+//     arr.forEach(ele => {
+//       map[ele.userid] = {
+//         ...{userid: null, name: null, role: null},
+//         ...map[ele.userid],
+//         ...ele,
+//       }
+//     });
+//     return Object.values(map);
+
+// let m = new Map();
+
+// for(let i=0; i < arr.length; i++){
+//     if(m.has(arr[i].userid)) {
+//       m.set(arr[i].userid, {
+//         ...m.get(arr[i].userid),
+//         ...arr[i]
+//       })
+//     } else {
+//       m.set(arr[i].userid, {
+//         ...{userid: null, name: null, role: null},
+//         ...arr[i]
+//       })
+//     }
+// }
+// return Array.from(m.values());
+// }
+// {
+//   2: { userid: 2, name: 'Velen' },
+// }
+
+// console.log(mergeList(first, second));
+// [
+//   { userid: 2, name: 'Velen', role: 'Mage' },
+//   { userid: 56, name: 'Illidan', role: 'Demon Hunter' },
+//   { userid: 44, name: 'Cenarius', role: null },
+//   { userid: 87, name: null, role: 'Shaman' },
+//   ...
+// ]
+//^ ~~~~~~interview question~~~~~~~~~~~~
+// const callback1 = (a) => a + 2; // 6
+// const callback2 = (b) => b * 2; // 12
+// const callback3 = (c) => c - 2; // 10
+
+// console.log(runAll(callback1, callback2, callback3)(4)); // 18
+
+// function runAll(...args) {
+
+//   return function(n) {
+//     return args.reduce((acc, curfn) => curfn(acc), n);
+//     // let acc = num;
+//     // while (cbs.length) {
+//     //   const cb = cbs.shift();
+//     //   acc = cb(res);
+//     // }
+//     // return acc;
+//   }
+// }
+
+// console.log([1, 2, 3].reduce((acc, cur) => acc + cur, 90));
+
+// function foo(num4) {
+//   return function(num5) {
+//     return num4 + num5
+//   }
+// }
+// const bar = foo(4);
+// console.log(bar(5)); // 4 + 5
+
+//* iife
+// (function () {
+//   console.log(1111);
+// })();
+//* object copy: shallow, deep
+
+// const a = {};
+// const b = {};
+// const c = new Map();
+
+// c.set(a, 1234);
+// c.set(b, 4567);
+
+// console.log(c.get(a));
+
+// const obj = {
+//   name: 'Jojo',
+//   age: 12,
+//   address: {
+//     zip: '123456'
+//   },
+//   foo: function() {},
+//   // date: new Date()
+// };
+// console.log(obj);
+// console.log(structuredClone(obj));
+
+// Lodash | _.cloneDeep() Method
+
+// const obj1 = JSON.parse(JSON.stringify(obj));
+// const obj1 = {
+//   ...obj,
+//   // address: {...obj.address}
+// };
+// obj.address.zip = '000000';
+
+// console.log(obj1.address.zip);
+
+//* this -----> object
+// this --- using inside a function;
+
+// (function() {
+//   console.log(this);
+// })();
+// const myObj = {
+//   name: 'Dio'
+// }
+// const obj = {
+//   name: 'Jojo',
+//   foo: function() {
+//     console.log('foo: ', this); // this for obj
+
+//     // function bar() {
+//     //   console.log('bar: ', this);
+//     // }
+//     // bar.call(myObj); // this for obj
+//     (() => {
+//       console.log('bar: ', this);
+//     })();
+//   }
+//   // bar: () => {
+//   //   console.log(this);
+//   // }
+// };
+// obj.foo();
+//^ interview
+// const question = () => {
+// 	const setup = () => {
+// 		two = {
+// 			a: "one",
+// 			b: { i: 1 },
+// 		};
+// 		const one = two;
+// 	};
+// 	setup();
+
+// 	try {
+// 		console.log("one: ", one);
+// 	} catch (error) {}
+
+// 	try {
+// 		console.log("two: ", two);
+// 	} catch (error) {}
+// };
+// question();
+
+// function wee() {
+//   help = 9;
+// }
+// wee();
+// console.log(help)
+
+// class Person {
+//   name = 'Dio';
+
+//   bar() {
+//     console.log(this);
+//   }
+// }
+// const p = new Person();
+// p.bar();
+
+// const myObj = {
+//   name: 'Jojo'
+// }
+
+// function printName(a, b) { // 100
+//   console.log(this.name, a + b);
+// }
+// const bindprint = printName.bind(myObj); // lazy
+// bindprint('1', true);
+
+// printName.call(myObj, '1', true); // eager : 1 + 100
+// printName.apply(myObj, ['1', true]); // eager : 1 + [100]
+
+// call, apply, bind
+
+//* arrow function
+// function foo() {}
+// const bar = () => {}
+
+// const arr = [1, 2, 3];
+// arr.forEach(function(num) {
+//   console.log(this.name, this.age);
+// }, {name: 'Dio', age: 67})
+
+// (function() {
+//   console.log(arguments)
+// })();
+// (() => {
+//   console.log(arguments)
+// })();
