@@ -1,3 +1,4 @@
+console.clear();
 /**
  * @class ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Day1
  * what is javascript, ECMAScript, ES2015, ES6
@@ -385,3 +386,17 @@
 // 	}
 //   return map;
 // };
+
+/** @class
+ * iife
+ * closure
+ * currying
+ *
+ * this
+ * call, apply, bind
+ *
+ * arrow function
+ *
+ * event loop
+ */
+
