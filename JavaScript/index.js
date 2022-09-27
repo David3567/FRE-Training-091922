@@ -624,3 +624,18 @@
 // (() => {
 //   console.log(arguments)
 // })();
+
+/** @class ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Day4
+ * 
+ * event loop
+ * 
+ * XHR
+ * 
+ * callback function; callback hell
+ * 
+ * Promise
+ * 
+ * MyPromise
+ * 
+ * MyFetch
+ */
