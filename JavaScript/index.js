@@ -811,38 +811,37 @@ task queue & message queue: [
 // });
 
 //* myFetch
+// function myFetch(url, options) {
+// 	return new Promise((resolve, reject) => {
+// 		const method = options && options.method ? options.method : "GET";
 
-function myFetch(url, options) {
-	return new Promise((resolve, reject) => {
-		const method = options && options.method ? options.method : "GET";
+//     const xhttp = new XMLHttpRequest();
+//     xhttp.open(method, url);
 
-    const xhttp = new XMLHttpRequest();
-    xhttp.open(method, url);
+// 		if (options && options.headers) {
+// 			Object.entries(options.headers).forEach(([key, val]) => {
+// 				xhttp.setRequestHeader(key, val);
+// 			});
+// 		}
 
-		if (options && options.headers) {
-			Object.entries(options.headers).forEach(([key, val]) => {
-				xhttp.setRequestHeader(key, val);
-			});
-		}
+// 		xhttp.onreadystatechange = function () {
+// 			if (
+//         this.readyState === 4 &&
+// 				this.status >= 200 &&
+// 				this.status < 300
+// 			) {
+// 				//& ~~~~~resolve function
+// 				resolve({
+// 					json: function () {
+// 						return JSON.parse(xhttp.response);
+// 					},
+// 				});
+// 			}
+// 		};
 
-		xhttp.onreadystatechange = function () {
-			if (
-        this.readyState === 4 &&
-				this.status >= 200 &&
-				this.status < 300
-			) {
-				//& ~~~~~resolve function
-				resolve({
-					json: function () {
-						return JSON.parse(xhttp.response);
-					},
-				});
-			}
-		};
-
-		options && options.body ? xhttp.send(options.body) : xhttp.send();
-	});
-}
+// 		options && options.body ? xhttp.send(options.body) : xhttp.send();
+// 	});
+// }
 
 // //& ~~~~~~~~~~~~~~ get
 // myFetch("https://jsonplaceholder.typicode.com/todos/1")
@@ -863,12 +862,30 @@ function myFetch(url, options) {
 // 	.then((response) => response.json())
 // 	.then((json) => console.log(json));
 
-
 //^ interview
 // For example:
 // If,
-// const add = (a, b) => a + b
-// const multiplyByTwo = (c) => c * 2
-// Then,
-// await promisifyFunction(add)(1, 1) should return 2
-// await promisifyFunction(multiplyByTwo)(3).then(val => val + 1) should return 7
+// const add = (a, b) => a + b;
+// const multiplyByTwo = (c) => c * 2;
+// // // Then,
+// // await promisifyFunction(add)(1, 1); // should return 2
+// // await promisifyFunction(multiplyByTwo)(3).then((val) => val + 1); // should return 7
+
+// function promisifyFunction(cb) {
+// 	return function (...val) {
+// 		return new Promise((res, rej) => {
+// 			res(cb(...val));
+// 		});
+// 	};
+// }
+
+// (async () => {
+//   const f = await promisifyFunction(add)(1, 1);
+//   console.log(f);
+//   const s = await promisifyFunction(multiplyByTwo)(3).then((val) => val + 1);
+//   console.log(s);
+// })();
+// promisifyFunction(add)(1, 1).then((f) => console.log(f));
+// promisifyFunction(multiplyByTwo)(3)
+// 	.then((val) => val + 1)
+// 	.then((f) => console.log(f));
