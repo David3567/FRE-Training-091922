@@ -12,7 +12,16 @@ const Api = (() => {
 			method: "DELETE",
 		});
 
-	return { getTodos, deleteTodo };
+	const addTodo = (newtodo) =>
+		fetch([baseUrl, todopath].join("/"), {
+			method: "POST",
+			body: JSON.stringify(newtodo),
+			headers: {
+				"Content-type": "application/json; charset=UTF-8",
+			},
+		}).then((response) => response.json());
+
+	return { getTodos, deleteTodo, addTodo };
 })();
 
 //* ~~~~~~~~~~~~~~~~~~~~ View
@@ -20,6 +29,7 @@ const View = (() => {
 	const domstr = {
 		todoContainer: "#todolist_container",
 		deletebtn: ".delete-btn",
+		inputbox: ".todolist__input",
 	};
 	const render = (ele, tmp) => {
 		ele.innerHTML = tmp;
@@ -42,7 +52,15 @@ const View = (() => {
 
 //* ~~~~~~~~~~~~~~~~~~~~ Model
 const Model = ((api, view) => {
-	const { getTodos, deleteTodo } = api;
+	const { getTodos, deleteTodo, addTodo } = api;
+
+	class Todo {
+		constructor(title) {
+			this.userId = 5;
+			this.title = title;
+			this.completed = false;
+		}
+	}
 	class State {
 		#todoslist = [];
 
@@ -60,7 +78,7 @@ const Model = ((api, view) => {
 		}
 	}
 
-	return { getTodos, deleteTodo, State };
+	return { getTodos, deleteTodo, addTodo, State, Todo };
 })(Api, View);
 
 //* ~~~~~~~~~~~~~~~~~~~~ Controller
@@ -76,21 +94,38 @@ const Controller = ((model, view) => {
 				state.todolist = state.todolist.filter(
 					(todo) => +todo.id !== +event.target.id
 				);
-        model.deleteTodo(event.target.id);
+				model.deleteTodo(event.target.id);
 			}
 		});
 	};
-  const addTodo = () => {}
+	const addTodo = () => {
+		const inputbox = document.querySelector(view.domstr.inputbox);
+
+		inputbox.addEventListener("keyup", (event) => {
+			if (event.key === "Enter" && event.target.value.trim() !== '') {
+				const newTodo = new model.Todo(
+					event.target.value
+				);
+
+				model.addTodo(newTodo).then((todo) => {
+					state.todolist = [todo, ...state.todolist];
+				});
+
+        event.target.value = '';
+			}
+		});
+	};
 
 	const init = () => {
 		model.getTodos().then((todos) => {
-			state.todolist = todos;
+			state.todolist = todos.reverse();
 		});
 	};
 
 	const bootstrap = () => {
 		init();
 		deleteTodo();
+		addTodo();
 	};
 
 	return { bootstrap };
