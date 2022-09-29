@@ -1,5 +1,6 @@
 const Api = (() => {
-	const baseUrl = "https://jsonplaceholder.typicode.com";
+	// const baseUrl = "https://jsonplaceholder.typicode.com";
+  const baseUrl = 'http://localhost:4232';
 	const todopath = "todos";
 
 	const getTodos = () =>
