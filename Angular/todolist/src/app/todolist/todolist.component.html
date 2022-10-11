@@ -1,5 +1,8 @@
+<input [(ngModel)]="newTodo.title" (change)="addTodo()" />
 <ul>
-  <li *ngFor="let todo of todolist">
-    {{ todo.title }}
-  </li>
+  <app-todoitem
+    *ngFor="let todo of todoService.todos$ | async"
+    [todo]="todo"
+    (emitItemId)="deleteTodo($event)"
+  ></app-todoitem>
 </ul>
