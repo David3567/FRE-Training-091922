@@ -31,3 +31,7 @@ export class TodolistComponent implements OnInit {
     // this.todoService.addTodo(this.newTodo).subscribe();
   }
 }
+
+//* 1. what you did yesterday
+//* 2. what you will do next
+//* 3. any block
