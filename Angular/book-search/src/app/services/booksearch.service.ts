@@ -17,7 +17,6 @@ export class BooksearchService {
         return res.totalItems !== 0;
       }),
       map(({ items }: RootObject): any => {
-        console.log('items', items);
         if (items && items.length) {
           return items.map(({ volumeInfo }: Book) => {
             const book: any = {
@@ -36,11 +35,3 @@ export class BooksearchService {
     );
   }
 }
-
-// [{
-//   bookpic: ,
-//   bookname: ,
-//   publisher: ,
-//   publishdate: ,
-//   description ,
-// }]
