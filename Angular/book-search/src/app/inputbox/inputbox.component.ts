@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
-import { debounceTime, mergeMap, switchMap } from 'rxjs/operators';
+import { debounceTime, filter, mergeMap, switchMap } from 'rxjs/operators';
 import { BooksearchService } from '../services/booksearch.service';
 
 @Component({
@@ -26,6 +26,9 @@ export class InputboxComponent implements OnInit, OnDestroy {
     this.eventSubscription = fromEvent(this.inputbox.nativeElement, 'keyup')
       .pipe(
         debounceTime(500),
+        filter((_) => {
+          return this.inputbox.nativeElement.value.trim() !== '';
+        }),
         mergeMap((_) => {
           return this.bookService.getBookList(
             this.inputbox.nativeElement.value

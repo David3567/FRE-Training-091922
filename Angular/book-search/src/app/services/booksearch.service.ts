@@ -13,17 +13,25 @@ export class BooksearchService {
 
   getBookList(bookname: string) {
     return this.http.get<RootObject>(this.searchApi + bookname).pipe(
-      // filter((data: any) => {
-      //   return data.items?.length;
-      // }),
-      map((datafrombackend: any) => {
-        return datafrombackend.items.map((item: any) => ({
-          bookpic: item.volumeInfo.imageLinks.thumbnail || '',
-          bookname: item.volumeInfo.title || '',
-          publisher: item.volumeInfo.publisher || '',
-          publishdate: item.volumeInfo.publishedDate || '',
-          description: item.volumeInfo.description || '',
-        }));
+      filter((res: RootObject) => {
+        return res.totalItems !== 0;
+      }),
+      map(({ items }: RootObject): any => {
+        console.log('items', items);
+        if (items && items.length) {
+          return items.map(({ volumeInfo }: Book) => {
+            const book: any = {
+              bookname: volumeInfo.title,
+              publisher: volumeInfo.publisher,
+              publishdate: volumeInfo.publishedDate,
+              description: volumeInfo.description,
+            };
+            if (volumeInfo.imageLinks) {
+              book.bookpic = volumeInfo.imageLinks.thumbnail || '';
+            }
+            return book;
+          });
+        }
       })
     );
   }
