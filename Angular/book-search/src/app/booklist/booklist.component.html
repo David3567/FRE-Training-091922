@@ -1,1 +1,11 @@
 <p>booklist works!</p>
+
+<ul>
+  <li
+    *ngFor="let book of bookService.booklist$ | async"
+    (click)="onClickBook(book.bookname)"
+  >
+    <img [src]="book.bookpic" alt="" />
+    {{ book.bookname }}
+  </li>
+</ul>

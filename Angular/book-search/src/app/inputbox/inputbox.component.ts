@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
-import { debounceTime, filter, mergeMap, switchMap } from 'rxjs/operators';
+import { debounceTime, filter, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { BooksearchService } from '../services/booksearch.service';
 
 @Component({
@@ -29,15 +29,13 @@ export class InputboxComponent implements OnInit, OnDestroy {
         filter((_) => {
           return this.inputbox.nativeElement.value.trim() !== '';
         }),
-        mergeMap((_) => {
+        switchMap((_) => {
           return this.bookService.getBookList(
             this.inputbox.nativeElement.value
           );
         })
       )
-      .subscribe((data) => {
-        console.log(data);
-      });
+      .subscribe();
   }
   ngOnDestroy(): void {
     this.eventSubscription.unsubscribe();

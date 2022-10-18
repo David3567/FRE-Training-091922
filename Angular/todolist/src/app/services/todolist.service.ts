@@ -26,7 +26,6 @@ export class TodolistService {
   deleteTodo(id: string) {
     return this.http.delete([this.baseUrl, id].join('/')).pipe(
       <any>tap(() => {
-        console.log(id);
         this.todolist = this.todolist.filter((todo: any) => +todo.id !== +id);
         this.todolist$.next(this.todolist);
       })
