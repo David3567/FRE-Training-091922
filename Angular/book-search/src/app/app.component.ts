@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
-import { interval, Subscription, Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { interval, Subscription, Subject, Observable, forkJoin } from 'rxjs';
+import { map, take, takeUntil } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -11,23 +12,40 @@ export class AppComponent implements OnDestroy {
   title = 'book-search';
   subq$ = new Subscription();
   notifier$ = new Subject();
+  baseUrl = 'https://randomuser.me/api';
 
-  constructor() {}
+  constructor(private readonly http: HttpClient) {}
 
   ngOnInit(): void {
-    // const obs$: Observable<number> = of(1, 2, 3);
-    // obs$.subscribe((data) => console.log(data));
-
-    // const obs$ = from([1, 2, 3]);
-    // obs$.subscribe((data) => console.log(data));
-
-    this.subq$ = interval(500)
-      .pipe(takeUntil(this.notifier$))
-      .subscribe(console.log);
+    // const user = this.http.get(this.baseUrl).pipe(
+    //   map((res: any) => {
+    //     return res.results[0];
+    //   })
+    // );
+    // const usesObs: Observable<any>[] = [];
+    // new Array(3).fill(0).forEach((_) => {
+    //   usesObs.push(user);
+    // });
+    // forkJoin({
+    //   user1: this.http.get(this.baseUrl).pipe(
+    //     map((res: any) => {
+    //       return res.results[0];
+    //     })
+    //   ),
+    //   num: interval(500).pipe(
+    //     map((num) => {
+    //       console.log(num);
+    //       return num;
+    //     }),
+    //     take(10)
+    //   ),
+    // }).subscribe(console.log);
+    // this.subq$ = interval(500)
+    //   .pipe(takeUntil(this.notifier$))
+    //   .subscribe(console.log);
   }
-  ngOnDestroy(): void {
-    // this.subq$.unsubscribe();
-  }
+
+  ngOnDestroy(): void {}
 
   stopObs() {
     this.notifier$.next(null);

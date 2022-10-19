@@ -8,6 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { InputboxComponent } from './inputbox/inputbox.component';
 import { BooklistComponent } from './booklist/booklist.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { OnchangeComponent } from './onchange/onchange.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     InputboxComponent,
     BooklistComponent,
     WishlistComponent,
+    OnchangeComponent,
+    PageNotFoundComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

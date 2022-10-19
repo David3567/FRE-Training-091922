@@ -1,9 +1,15 @@
-<!-- <main>
+<!-- <button (click)="stopObs()">Unsubscribe</button> -->
+
+<header>
+  This is the header
+  <div>
+    <button routerLink="/booklist">BookList</button>
+    <button routerLink="/wishlist">WishList</button>
+  </div>
+</header>
+<main>
   <app-inputbox></app-inputbox>
   <div>
-    <app-booklist></app-booklist>
-    <app-wishlist></app-wishlist>
+    <router-outlet></router-outlet>
   </div>
-</main> -->
-
-<button (click)="stopObs()">Unsubscribe</button>
+</main>

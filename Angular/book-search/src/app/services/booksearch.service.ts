@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Book, RootObject } from '../interfaces/book.interface';
-import { filter, map, tap, take } from 'rxjs/operators';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { filter, map, tap, take, catchError } from 'rxjs/operators';
+import { Subject, BehaviorSubject, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,7 @@ export class BooksearchService {
   //* ~~~~~~~~~~ books
   private books = [];
   private books$ = new BehaviorSubject<any>(this.books);
+  // private books$ = new Subject<any>();
   booklist$ = this.books$.asObservable();
 
   //* ~~~~~~~~~~~ wishes
@@ -46,6 +47,9 @@ export class BooksearchService {
       tap((books: any) => {
         this.books = books;
         this.books$.next(this.books);
+      }),
+      catchError((err) => {
+        return throwError(err);
       })
       // take(1)
     );
@@ -57,3 +61,8 @@ export class BooksearchService {
     this.wishlist$.next(this.wishlist);
   }
 }
+
+// const arr = [1, 2, 3];
+// arr.forEach((num) => {
+//   num + 6
+// })

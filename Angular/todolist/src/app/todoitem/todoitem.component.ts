@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Todo } from '../interfaces/todo.interface';
 
 @Component({
@@ -10,11 +17,18 @@ export class TodoitemComponent implements OnInit {
   @Input() todo!: Todo;
   @Output() emitItemId = new EventEmitter();
 
+  name = 'hello';
+
   constructor() {}
 
   ngOnInit(): void {}
 
+  // ngDoCheck(): void {
+  //   throw new Error('Method not implemented.');
+  // }
+
   deleteTodo() {
     this.emitItemId.emit(this.todo.id);
+    this.name = 'world';
   }
 }

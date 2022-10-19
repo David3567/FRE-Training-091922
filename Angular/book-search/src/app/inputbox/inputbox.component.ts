@@ -35,9 +35,14 @@ export class InputboxComponent implements OnInit, OnDestroy {
           );
         })
       )
-      .subscribe();
+      .subscribe(
+        () => {},
+        () => {}
+      );
   }
   ngOnDestroy(): void {
     this.eventSubscription.unsubscribe();
   }
 }
+
+// new Promise().then().catch()

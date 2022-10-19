@@ -6,12 +6,14 @@ import { BooksearchService } from '../services/booksearch.service';
   templateUrl: './booklist.component.html',
   styleUrls: ['./booklist.component.scss'],
 })
-export class BooklistComponent implements OnInit {
-  constructor(public bookService: BooksearchService) {}
-
-  ngOnInit(): void {
+export class BooklistComponent {
+  constructor(public bookService: BooksearchService) {
     this.bookService.booklist$.subscribe();
   }
+
+  // ngOnInit(): void {
+
+  // }
 
   onClickBook(bookName: string) {
     this.bookService.addBookToWishList(bookName);
