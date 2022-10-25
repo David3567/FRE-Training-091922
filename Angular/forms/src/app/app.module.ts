@@ -11,7 +11,14 @@ import { CustomvalidatorComponent } from './customvalidator/customvalidator.comp
 import { SetvalidatorComponent } from './setvalidator/setvalidator.component';
 
 @NgModule({
-  declarations: [AppComponent, TemplateformComponent, SelectallComponent, CrossieldvalidationComponent, CustomvalidatorComponent, SetvalidatorComponent],
+  declarations: [
+    AppComponent,
+    TemplateformComponent,
+    SelectallComponent,
+    CrossieldvalidationComponent,
+    CustomvalidatorComponent,
+    SetvalidatorComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
