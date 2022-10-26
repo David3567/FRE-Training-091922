@@ -10,6 +10,7 @@ import { SelectallComponent } from './selectall/selectall.component';
 import { CrossieldvalidationComponent } from './crossieldvalidation/crossieldvalidation.component';
 import { CustomvalidatorComponent } from './customvalidator/customvalidator.component';
 import { SetvalidatorComponent } from './setvalidator/setvalidator.component';
+import { FormarrayComponent } from './formarray/formarray.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SetvalidatorComponent } from './setvalidator/setvalidator.component';
     CrossieldvalidationComponent,
     CustomvalidatorComponent,
     SetvalidatorComponent,
+    FormarrayComponent,
   ],
   imports: [
     BrowserModule,
