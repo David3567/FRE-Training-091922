@@ -11,6 +11,8 @@ import { CrossieldvalidationComponent } from './crossieldvalidation/crossieldval
 import { CustomvalidatorComponent } from './customvalidator/customvalidator.component';
 import { SetvalidatorComponent } from './setvalidator/setvalidator.component';
 import { FormarrayComponent } from './formarray/formarray.component';
+import { DynamicformarrayComponent } from './dynamicformarray/dynamicformarray.component';
+import { SetvalueformarrayComponent } from './setvalueformarray/setvalueformarray.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { FormarrayComponent } from './formarray/formarray.component';
     CustomvalidatorComponent,
     SetvalidatorComponent,
     FormarrayComponent,
+    DynamicformarrayComponent,
+    SetvalueformarrayComponent,
   ],
   imports: [
     BrowserModule,
