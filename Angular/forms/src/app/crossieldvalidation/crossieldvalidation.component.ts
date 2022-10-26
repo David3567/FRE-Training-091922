@@ -7,6 +7,9 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { debounceTime, map, switchMap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-crossieldvalidation',
@@ -24,14 +27,11 @@ export class CrossieldvalidationComponent implements OnInit {
     return this.form.get('pwd') as FormGroup;
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      email: [
-        '',
-        [Validators.pattern('^[a-z0-9_-]{8,15}$'), Validators.required],
-      ],
+      email: ['', [], [this.asyncCheckEmail]],
       pwd: this.fb.group(
         {
           password: ['', [this.minlen(15)]],
@@ -42,11 +42,32 @@ export class CrossieldvalidationComponent implements OnInit {
         }
       ),
     });
+
+    // this.email.valueChanges.pipe(switchMap).subscribe((val) => {
+    //   console.log(val);
+    // });
   }
 
   onSubmit() {
     console.log(this.form.value);
   }
+
+  private asyncCheckEmail = (
+    control: FormControl
+  ): Observable<ValidationErrors | null> => {
+    const url = 'http://localhost:4231/auth/check-email';
+    const value: string = control.value;
+
+    return this.http.post(url, { email: value }).pipe(
+      debounceTime(500),
+      map((data: any) => {
+        if (data) {
+          return { hasemail: true };
+        }
+        return null;
+      })
+    );
+  };
 
   private minlen(limitednum: number): ValidatorFn {
     return function (control: AbstractControl): ValidationErrors | null {
@@ -72,4 +93,10 @@ export class CrossieldvalidationComponent implements OnInit {
 }
 interface ValidatorFn {
   (control: AbstractControl): ValidationErrors | null;
+}
+
+interface AsyncValidatorFn {
+  (control: AbstractControl):
+    | Promise<ValidationErrors | null>
+    | Observable<ValidationErrors | null>;
 }
