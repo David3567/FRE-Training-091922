@@ -9,8 +9,19 @@ import { ProductComponent } from './components/product/product.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'product', component: ProductComponent },
-  { path: 'product/:id', component: ProductDetailComponent },
+  // { path: 'product', component: ProductComponent },
+  // { path: 'product/:id', component: ProductDetailComponent },
+  {
+    path: 'product',
+    // component: ProductComponent,
+    children: [
+      { path: '', component: ProductComponent },
+      { path: ':id', component: ProductDetailComponent },
+    ],
+  },
+
+  { path: 'home', component: HomeComponent, outlet: 'secondary' },
+  { path: 'contact', component: ContactComponent, outlet: 'secondary' },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: NotfoundComponent },

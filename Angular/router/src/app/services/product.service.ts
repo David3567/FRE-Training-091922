@@ -20,13 +20,9 @@ export class ProductService {
 }
 
 export class Product {
-  productID: number;
-  name: string;
-  price: number;
-
-  constructor(productID: number, name: string, price: number) {
-    this.productID = productID;
-    this.name = name;
-    this.price = price;
-  }
+  constructor(
+    public productID: number,
+    public name: string,
+    public price: number
+  ) {}
 }

@@ -46,7 +46,7 @@ export class FormarrayComponent implements OnInit {
 //     password: '1234',
 //     confirm: '1234'
 //   },
-//   arr: [
+//   arr:
 //     {
 //       name:
 //       age:
@@ -54,5 +54,5 @@ export class FormarrayComponent implements OnInit {
 
 //       ]
 //     },
-//   ]
+//
 // }
