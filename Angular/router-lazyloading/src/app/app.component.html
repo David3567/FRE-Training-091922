@@ -1,0 +1,13 @@
+<ul class="nav navbar-nav">
+  <li><a [routerLink]="['home']" routerLinkActive="active">Home</a></li>
+  <!-- <li><a [routerLink]="['user']">User</a></li> -->
+  <!-- <li><a [routerLink]="['product']">Product</a></li> -->
+  <li>
+    <a [routerLink]="['lazyloadproduct/product']" routerLinkActive="active">
+      Lazyloadproduct
+    </a>
+  </li>
+  <li><a [routerLink]="['user']" routerLinkActive="active">user</a></li>
+</ul>
+
+<router-outlet></router-outlet>

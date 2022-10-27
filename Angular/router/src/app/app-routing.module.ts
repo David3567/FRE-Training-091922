@@ -20,8 +20,16 @@ const routes: Routes = [
     ],
   },
 
-  { path: 'home', component: HomeComponent, outlet: 'secondary' },
-  { path: 'contact', component: ContactComponent, outlet: 'secondary' },
+  {
+    path: 'home',
+    component: HomeComponent,
+    outlet: 'secondary',
+  },
+  {
+    path: 'contact',
+    component: ContactComponent,
+    outlet: 'secondary',
+  },
 
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: NotfoundComponent },
