@@ -27,6 +27,9 @@ export class DynamicComponent implements OnInit {
     console.log('history: ', history.state);
     this.product = history.state;
 
+    console.log(this.activedRoute.snapshot.queryParamMap.get('name'));
+    console.log(this.activedRoute.snapshot);
+
     // console.log(
     //   'currentNavigation in ngOnInit: ',
     //   this.router.getCurrentNavigation()?.extras.state

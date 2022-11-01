@@ -18,9 +18,9 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
-    this.router.events
-      // .pipe(filter((event) => event instanceof NavigationStart))
-      .subscribe(console.log);
+    // this.router.events
+    // .pipe(filter((event) => event instanceof NavigationStart))
+    // .subscribe(console.log);
   }
 
   loadProduct2() {

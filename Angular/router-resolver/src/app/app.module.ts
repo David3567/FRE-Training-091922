@@ -21,6 +21,8 @@ import { DynamicComponent } from './components/dynamic/dynamic.component';
     HomeComponent,
     Product1Component,
     Product2Component,
+    StaticComponent,
+    DynamicComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],

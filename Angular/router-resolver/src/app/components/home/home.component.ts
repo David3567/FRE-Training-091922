@@ -10,12 +10,18 @@ import { SpinnerService } from '../../services/spinner.service';
 export class HomeComponent {
   public product = { id: '1', name: 'Angular' };
 
-  constructor(private router: Router, private spinnerService: SpinnerService) {
+  constructor(
+    private readonly router: Router,
+    private spinnerService: SpinnerService
+  ) {
     this.spinnerService.setspinner(false);
   }
 
   gotoDynamic() {
     //this.router.navigateByUrl('/dynamic', { state: { id:1 , name:'Angular' } });
-    this.router.navigate(['/dynamic'], { state: this.product });
+    this.router.navigate(['/dynamic'], {
+      state: this.product,
+      // queryParams: this.product,
+    });
   }
 }

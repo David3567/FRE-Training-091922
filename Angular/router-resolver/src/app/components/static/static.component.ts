@@ -8,14 +8,15 @@ import { SpinnerService } from '../../services/spinner.service';
 export class StaticComponent implements OnInit {
   product: any;
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private spinnerService: SpinnerService
   ) {}
 
   ngOnInit() {
     this.spinnerService.setspinner(false);
-    this.route.data.subscribe((data) => {
-      this.product = data;
-    });
+    // this.activatedRoute.data.subscribe((data) => {
+    //   this.product = data;
+    // });
+    this.product = this.activatedRoute.snapshot.data['id'];
   }
 }
