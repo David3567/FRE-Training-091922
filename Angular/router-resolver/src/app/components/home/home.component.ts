@@ -10,11 +10,7 @@ import { SpinnerService } from '../../services/spinner.service';
 export class HomeComponent {
   public product = { id: '1', name: 'Angular' };
 
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private spinnerService: SpinnerService
-  ) {
+  constructor(private router: Router, private spinnerService: SpinnerService) {
     this.spinnerService.setspinner(false);
   }
 

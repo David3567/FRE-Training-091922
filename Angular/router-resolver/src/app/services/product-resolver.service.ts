@@ -7,8 +7,8 @@ import {
 } from '@angular/router';
 import { ProductService } from './product.service';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { Product } from './product';
+import { map } from 'rxjs/operators';
+import { Product } from './product.class';
 
 @Injectable({
   providedIn: 'root',

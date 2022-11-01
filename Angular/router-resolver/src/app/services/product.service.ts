@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { of, Observable, throwError } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
-import { Product } from './product';
+import { Product } from './product.class';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ import { Product } from './product';
 export class ProductService {
   products: Product[];
 
-  public constructor() {
+  constructor() {
     this.products = [
       new Product(1, 'Memory Card', 500),
       new Product(2, 'Pen Drive', 750),
@@ -21,11 +21,11 @@ export class ProductService {
   }
 
   //Return Products List with a delay
-  public getProducts(): Observable<Product[]> {
+  getProducts(): Observable<Product[]> {
     return of(this.products).pipe(delay(2500));
   }
 
-  public getProduct(id: number): Observable<any> {
+  getProduct(id: number): Observable<any> {
     const Product = this.products.find((i) => i.productID == id);
     return of(Product).pipe(delay(2500));
   }

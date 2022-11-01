@@ -15,11 +15,11 @@ export class AppComponent {
   constructor(
     private readonly router: Router,
     private readonly spinnerService: SpinnerService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.router.events
-      .pipe(filter((event) => event instanceof NavigationStart))
+      // .pipe(filter((event) => event instanceof NavigationStart))
       .subscribe(console.log);
   }
 
@@ -27,3 +27,18 @@ export class AppComponent {
     this.spinnerService.setspinner(true);
   }
 }
+
+/**
+ * NavigationStart
+ *  RoutesRecognized
+ *  GuardsCheckStart
+ *  GuardsCheckEnd
+ *   ChildActivationStart
+ *    ActivationStart
+ *     ResolveStart
+ *     ResolveEnd
+ *    ActivationEnd
+ *   ChildActivationEnd
+ * NavigationEnd
+ * Scroll
+ */
