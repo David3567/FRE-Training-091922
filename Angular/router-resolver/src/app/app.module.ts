@@ -16,14 +16,14 @@ import { DynamicComponent } from './components/dynamic/dynamic.component';
 
 @NgModule({
   declarations: [
-    AppComponent, SpinnerComponent
+    AppComponent,
+    SpinnerComponent,
+    HomeComponent,
+    Product1Component,
+    Product2Component,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
