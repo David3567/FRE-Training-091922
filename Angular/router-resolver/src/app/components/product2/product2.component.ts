@@ -12,13 +12,13 @@ export class Product2Component {
   products: Product[] | undefined;
 
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private productService: ProductService,
     private spinnerService: SpinnerService
   ) {}
 
   ngOnInit() {
-    this.products = this.route.snapshot.data['ps'];
+    this.products = this.activatedRoute.snapshot.data['ps'];
   }
 
   ngAfterViewInit(): void {

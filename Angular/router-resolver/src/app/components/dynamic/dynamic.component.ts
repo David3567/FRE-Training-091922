@@ -14,11 +14,11 @@ export class DynamicComponent implements OnInit {
     private activedRoute: ActivatedRoute,
     private spinnerService: SpinnerService
   ) {
-    console.log(
-      'currentNavigation: ',
-      this.router.getCurrentNavigation()?.extras.state
-    );
-    console.log(this.router.getCurrentNavigation());
+    // console.log(
+    //   'currentNavigation: ',
+    //   this.router.getCurrentNavigation()?.extras.state
+    // );
+    // console.log(this.router.getCurrentNavigation());
   }
 
   ngOnInit() {
@@ -27,8 +27,8 @@ export class DynamicComponent implements OnInit {
     console.log('history: ', history.state);
     this.product = history.state;
 
-    console.log(this.activedRoute.snapshot.queryParamMap.get('name'));
-    console.log(this.activedRoute.snapshot);
+    // console.log(this.activedRoute.snapshot.queryParamMap.get('name'));
+    // console.log(this.activedRoute.snapshot);
 
     // console.log(
     //   'currentNavigation in ngOnInit: ',

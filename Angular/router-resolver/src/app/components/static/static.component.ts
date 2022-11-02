@@ -18,5 +18,6 @@ export class StaticComponent implements OnInit {
     //   this.product = data;
     // });
     this.product = this.activatedRoute.snapshot.data['id'];
+    // console.log(this.activatedRoute.snapshot.data);
   }
 }

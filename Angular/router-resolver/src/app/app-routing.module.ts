@@ -31,7 +31,7 @@ const routes: Routes = [
   {
     path: 'static',
     component: StaticComponent,
-    data: { id: '23', name: 'Angular' },
+    data: { id: '45', name: 'Angular' },
   },
   { path: 'dynamic', component: DynamicComponent },
 
@@ -40,6 +40,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

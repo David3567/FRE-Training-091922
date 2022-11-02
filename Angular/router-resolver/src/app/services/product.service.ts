@@ -3,9 +3,7 @@ import { of, Observable, throwError } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { Product } from './product.class';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ProductService {
   products: Product[];
 

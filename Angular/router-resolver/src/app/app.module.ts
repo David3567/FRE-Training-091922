@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
@@ -13,6 +13,9 @@ import { Product2Component } from './components/product2/product2.component';
 import { StaticComponent } from './components/static/static.component';
 import { Product2DetailComponent } from './components/product2-detail/product2-detail.component';
 import { DynamicComponent } from './components/dynamic/dynamic.component';
+import { ProductService } from './services/product.service';
+
+export const PRODCT = new InjectionToken<string>('');
 
 @NgModule({
   declarations: [
@@ -23,9 +26,14 @@ import { DynamicComponent } from './components/dynamic/dynamic.component';
     Product2Component,
     StaticComponent,
     DynamicComponent,
+    ContactComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
-  providers: [],
+  providers: [
+    ProductService,
+    { provide: PRODCT, useClass: ProductService },
+    { provide: 'baseUrl', useValue: 'http://locahost:4200', deps: [] },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
