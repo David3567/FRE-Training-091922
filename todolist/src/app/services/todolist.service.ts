@@ -1,19 +1,22 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { BASRURL } from '../app.module';
 import { Todo } from '../interfaces/todo.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodolistService {
-  private baseUrl = 'https://jsonplaceholder.typicode.com/todos';
   private todolist: Todo[] = [];
   private todolist$ = new BehaviorSubject(this.todolist);
   todos$ = this.todolist$.asObservable();
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    @Inject(BASRURL) private baseUrl: string
+  ) {}
 
   getTodos(): Observable<Todo[]> {
     return this.http.get<Todo[]>(this.baseUrl).pipe(
