@@ -1,8 +1,18 @@
-<input [(ngModel)]="newTodo.title" (change)="addTodo()" />
-<ul>
-  <app-todoitem
-    *ngFor="let todo of todoService.todos$ | async"
-    [todo]="todo"
-    (emitItemId)="deleteTodo($event)"
-  ></app-todoitem>
-</ul>
+<section class="todolist">
+  <header class="todolist__header">todo list</header>
+  <input
+    class="todolist__input"
+    placeholder="input your todo here..."
+    [(ngModel)]="newTodo.title"
+    #inputTodo
+    (change)="addTodo()"
+  />
+
+  <ul id="todolist__container">
+    <app-todoitem
+      *ngFor="let todoitem of todos$ | async"
+      [todo]="todoitem"
+      (emitItemId)="deleteTodo($event)"
+    ></app-todoitem>
+  </ul>
+</section>

@@ -9,8 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./todolist.component.scss'],
 })
 export class TodolistComponent implements OnInit {
-  // todolist: Todo[] = [];
-  // todos$!: Observable<Todo[]>;
+  todos$!: Observable<Todo[]>;
 
   newTodo: Todo = {
     userId: 4,
@@ -18,20 +17,17 @@ export class TodolistComponent implements OnInit {
     completed: false,
   };
 
-  constructor(public todoService: TodolistService) {}
+  constructor(private todoService: TodolistService) {}
 
   ngOnInit(): void {
     this.todoService.getTodos().subscribe();
+    this.todos$ = this.todoService.todos$;
   }
 
   deleteTodo(id: string) {
     this.todoService.deleteTodo(id).subscribe();
   }
   addTodo() {
-    // this.todoService.addTodo(this.newTodo).subscribe();
+    this.todoService.addTodo(this.newTodo).subscribe();
   }
 }
-
-//* 1. what you did yesterday
-//* 2. what you will do next
-//* 3. any block

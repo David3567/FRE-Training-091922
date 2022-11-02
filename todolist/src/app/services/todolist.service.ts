@@ -16,16 +16,24 @@ export class TodolistService {
   constructor(private readonly http: HttpClient) {}
 
   getTodos(): Observable<Todo[]> {
-    return this.http.get(this.baseUrl).pipe(
-      <any>tap((todos: Todo[]) => {
-        this.todolist = todos;
+    return this.http.get<Todo[]>(this.baseUrl).pipe(
+      tap((todos: Todo[]) => {
+        this.todolist = todos.reverse();
         this.todolist$.next(this.todolist);
       })
     ) as Observable<Todo[]>;
   }
+  addTodo(todo: Todo) {
+    return this.http.post<Todo>(this.baseUrl, todo).pipe(
+      tap((todo) => {
+        this.todolist = [todo, ...this.todolist];
+        this.todolist$.next(this.todolist);
+      })
+    );
+  }
   deleteTodo(id: string) {
     return this.http.delete([this.baseUrl, id].join('/')).pipe(
-      <any>tap(() => {
+      tap(() => {
         this.todolist = this.todolist.filter((todo: any) => +todo.id !== +id);
         this.todolist$.next(this.todolist);
       })
