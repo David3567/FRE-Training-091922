@@ -4,7 +4,7 @@
     class="todolist__input"
     placeholder="input your todo here..."
     [(ngModel)]="newTodo.title"
-    (change)="addTodo()"
+    (keyup.enter)="addTodo()"
   />
 
   <ul id="todolist__container">

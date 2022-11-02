@@ -32,6 +32,7 @@ export class TodolistComponent implements OnInit {
     // this.todos$ = this.todoService.todos$;
 
     //* ~~~~~~ Ngrx ~~~~~~~
+    this.store.dispatch(TodoActions.loadTodoList());
     this.todos$ = this.store.select(TodoSelectors.todoListSelector);
   }
 
@@ -40,16 +41,7 @@ export class TodolistComponent implements OnInit {
   }
   addTodo() {
     // this.todoService.addTodo(this.newTodo).subscribe();
-
     //* ~~~~~~ Ngrx ~~~~~~~
-    const id = Math.floor(Math.random() * 10000);
-    this.store.dispatch(
-      TodoActions.addTodo({
-        todo: {
-          id,
-          ...this.newTodo,
-        },
-      })
-    );
+    this.store.dispatch(TodoActions.addTodo({ todo: { ...this.newTodo } }));
   }
 }

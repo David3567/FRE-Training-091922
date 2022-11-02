@@ -12,6 +12,8 @@ import { StoreModule } from '@ngrx/store';
 import { todoReducer } from './ngrx/todo.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { TodoEffects } from './ngrx/todo.effect';
 
 export const BASRURL = new InjectionToken<string>('');
 
@@ -28,6 +30,7 @@ export const BASRURL = new InjectionToken<string>('');
       maxAge: 25,
       name: 'TodoList Demo',
     }),
+    EffectsModule.forRoot([TodoEffects]),
   ],
   providers: [
     {
