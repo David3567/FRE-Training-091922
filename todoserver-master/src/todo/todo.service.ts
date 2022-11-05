@@ -4,6 +4,8 @@ import { Repository } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
 import { AddTodoDto } from './dto/add-todo.dto';
+import { EditTaskDto } from './dto/edit-task.dto';
+import { FilterTasksDto } from './dto/filter-tasks.dto';
 import { QueryTodoDto } from './dto/query-todo.dto';
 import { Todo } from './entities/todo.entity';
 
@@ -14,95 +16,56 @@ export class TodoService {
     private todosRepository: Repository<Todo>,
   ) {}
 
-  async getAllTodos(): Promise<Todo[]> {
+  async getAllTasks(): Promise<Todo[]> {
     return await this.todosRepository.find();
   }
-  // getTodoById(id: number): Todo {
-  //   const todo = this.todos.find((todo) => +todo.id === +id);
-  //   if (!todo) {
-  //     throw new NotFoundException(`todo id: ${id} not found!`);
-  //   }
-  //   return todo;
-  // }
-  // queryTodo({ completed, query }: QueryTodoDto): Todo[] {
-  //   let todos = this.getAllTodos();
 
-  //   if (completed) {
-  //     todos = todos.filter((todo) => todo.completed === completed);
-  //   }
-  //   if (query) {
-  //     todos = todos.filter((todo) => todo.title.includes(query));
-  //   }
+  async findTaskById(id: string): Promise<Todo> {
+    const todo = await this.todosRepository.findOne({ where: { id } });
+    if (!todo) {
+      throw new NotFoundException();
+    }
+    return todo;
+  }
 
-  //   return todos;
-  // }
-  // patchTodo(id: number, { completed, title }: Todo) {
-  //   const todo = this.getTodoById(id);
-  //   const index = this.todos.indexOf(todo);
-  //   this.todos.splice(index, 1, {
-  //     ...todo,
-  //     completed,
-  //     title,
-  //   });
-  // }
-  // putTodo(id, newtodo) {
-  //   const todo = this.getTodoById(id);
-  //   const index = this.todos.indexOf(todo);
-  //   this.todos.splice(index, 1, {
-  //     ...newtodo,
-  //   });
-  // }
+  async queryTasks({ completed, queryTitle }: FilterTasksDto): Promise<Todo[]> {
+    let tasks = await this.getAllTasks();
 
-  async addTodo({ title, completed }: AddTodoDto): Promise<Todo> {
-    const newtodo: Todo = {
-      title,
-      completed,
-      userId: 6,
+    if (completed) {
+      tasks = tasks.filter((task) => task.completed === completed);
+    }
+    if (queryTitle) {
+      tasks = tasks.filter((task) => task.title.includes(queryTitle));
+    }
+
+    return tasks;
+  }
+
+  async editTask(id: string, editTaskDto: EditTaskDto): Promise<Todo> {
+    const task = await this.findTaskById(id);
+
+    Object.entries(editTaskDto).forEach(([key, val]) => {
+      task[key] = val;
+    });
+    await this.todosRepository.save(this.todosRepository.create(task));
+
+    return task;
+  }
+
+  async createTask({ title }: AddTodoDto): Promise<Todo> {
+    const newTask: Todo = {
       id: uuid(),
+      userId: 4,
+      completed: false,
+      title,
     };
+    const task = this.todosRepository.create(newTask);
+    await this.todosRepository.save(task);
 
-    const todo = this.todosRepository.create(newtodo);
-    await this.todosRepository.save(todo);
+    return task;
+  }
 
-    return newtodo;
+  async deleteTask(id: string): Promise<void> {
+    await this.todosRepository.delete(id);
   }
 }
-
-/*  private todos: Todo[] = [
-    {
-      userId: 1,
-      id: 1,
-      title: 'delectus aut autem',
-      completed: false,
-    },
-    {
-      userId: 1,
-      id: 2,
-      title: 'quis ut nam facilis et officia qui',
-      completed: false,
-    },
-    {
-      userId: 1,
-      id: 3,
-      title: 'fugiat veniam minus',
-      completed: false,
-    },
-    {
-      userId: 1,
-      id: 4,
-      title: 'et porro tempora',
-      completed: true,
-    },
-    {
-      userId: 1,
-      id: 5,
-      title: 'laboriosam mollitia et enim quasi adipisci quia provident illum',
-      completed: false,
-    },
-    {
-      userId: 1,
-      id: 6,
-      title: 'qui ullam ratione quibusdam voluptatem quia omnis',
-      completed: true,
-    },
-  ]; */

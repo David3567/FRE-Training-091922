@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseBoolPipe,
@@ -14,43 +15,41 @@ import { TodoService } from './todo.service';
 import { AddTodoDto } from './dto/add-todo.dto';
 import { QueryTodoDto } from './dto/query-todo.dto';
 import { Todo } from './entities/todo.entity';
+import { EditTaskDto } from './dto/edit-task.dto';
+import { FilterTasksDto } from './dto/filter-tasks.dto';
 
 @Controller('todo')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Get()
-  getAllTodos(): Promise<Todo[]> {
-    return this.todoService.getAllTodos();
+  getTasks(@Query() filterTasksDto: FilterTasksDto): Promise<Todo[]> {
+    if (Object.keys(filterTasksDto).length) {
+      return this.todoService.queryTasks(filterTasksDto);
+    } else {
+      return this.todoService.getAllTasks();
+    }
+  }
+  @Get('/:id')
+  findTaskById(@Param('id') id: string): Promise<Todo> {
+    return this.todoService.findTaskById(id);
   }
 
-  // @Get()
-  // getTodos(@Query() queryTodoDto: QueryTodoDto): Todo[] {
-  //   console.log('query: ', typeof queryTodoDto.completed);
-  //   if (!Object.keys(queryTodoDto).length) {
-  //     return this.todoService.getAllTodos();
-  //   } else {
-  //     return this.todoService.queryTodo(queryTodoDto);
-  //   }
-  // }
-  // @Get('/:id')
-  // getTodoById(@Param('id') id: number): Todo {
-  //   console.log(typeof id);
-  //   return this.todoService.getTodoById(id);
-  // }
   @Post()
-  addTodo(@Body() addTodoDto: AddTodoDto): Promise<Todo> {
-    return this.todoService.addTodo(addTodoDto);
+  createTask(@Body() createTodoDto: AddTodoDto): Promise<Todo> {
+    return this.todoService.createTask(createTodoDto);
   }
-  // @Patch('/:id')
-  // editTodo(
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @Body('completed', ParseBoolPipe) completed: boolean,
-  //   @Body('title') title: string,
-  // ) {
-  //   this.todoService.patchTodo(id, {
-  //     completed,
-  //     title,
-  //   });
-  // }
+
+  @Patch('/:id')
+  editTask(
+    @Param('id') id: string,
+    @Body() editTaskDto: EditTaskDto,
+  ): Promise<Todo> {
+    return this.todoService.editTask(id, editTaskDto);
+  }
+
+  @Delete('/:id')
+  deleteTask(@Param('id') id: string): Promise<void> {
+    return this.todoService.deleteTask(id);
+  }
 }
