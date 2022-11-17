@@ -6,7 +6,8 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Todo } from '../services/todo.service';
+import { Todo } from '../services/todoGraphql.service';
+
 
 
 @Component({

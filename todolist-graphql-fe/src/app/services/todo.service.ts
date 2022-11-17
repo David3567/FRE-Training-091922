@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Todo } from './todoGraphql.service';
 
 @Injectable({
   providedIn: 'root',
@@ -43,14 +44,3 @@ export class TodoService {
 }
 
 
-export interface Todo {
-  id?: number;
-  userId: number;
-  title: string;
-  completed: boolean;
-}
-
-export interface TodoState {
-  todolist: Todo[];
-  err?: string;
-}

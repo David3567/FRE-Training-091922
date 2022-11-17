@@ -49,7 +49,7 @@ export type GetTodosOutput = {
 export type Mutation = {
   __typename?: 'Mutation';
   addTodo: AddTodoOutput;
-  deleteTodo?: Maybe<DeleteTodoOutput>;
+  deleteTodo: DeleteTodoOutput;
 };
 
 export type MutationAddTodoArgs = {
@@ -154,6 +154,30 @@ export class AddTodoGQL extends Apollo.Mutation<
   AddTodoMutationVariables
 > {
   override document = AddTodoDocument;
+
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
+
+export const DeleteTodoDocument = gql`
+  mutation DeleteTodo($input: DeleteTodoInput!) {
+    deleteTodo(input: $input) {
+      todo {
+        id
+      }
+    }
+  }
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class DeleteTodoGQL extends Apollo.Mutation<
+  AddTodoMutation,
+  AddTodoMutationVariables
+> {
+  override document = DeleteTodoDocument;
 
   constructor(apollo: Apollo.Apollo) {
     super(apollo);

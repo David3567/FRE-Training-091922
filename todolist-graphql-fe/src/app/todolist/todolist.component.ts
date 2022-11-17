@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Todo, TodoService } from '../services/todo.service';
+import { Todo } from '../services/todoGraphql.service';
+
+import { TodoGraphqlService } from './../services/todo.graphql.service';
 
 @Component({
   selector: 'app-todolist',
@@ -17,17 +19,16 @@ export class TodolistComponent implements OnInit {
   };
 
   constructor(
-    private readonly todoService: TodoService
+    private readonly todoService: TodoGraphqlService
   ) { }
 
   ngOnInit(): void {
 
-    this.todolist$ = this.todoService.todolist$;
+    this.todolist$ = this.todoService.todolist$ as Observable<Todo[]>;
     this.todoService.getTodos().subscribe();
   }
 
   onChange() {
-
     this.todoService.addTodo(this.todo).subscribe();
   }
 
