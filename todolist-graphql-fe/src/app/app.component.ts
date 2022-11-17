@@ -23,7 +23,7 @@ const GET_TODOS = gql`
 export class AppComponent {
   private querySubscription!: Subscription;
 
-  constructor(private readonly apollo: Apollo, private readonly addTodoGql: AddTodoGQL) { }
+  constructor(private readonly apollo: Apollo, private readonly addtodoGql: AddTodoGQL) { }
 
   ngOnInit(): void {
     // this.apollo
@@ -34,7 +34,7 @@ export class AppComponent {
     //     console.log(data.data.getTodos.todos);
     //   });
 
-    this.addTodoGql.mutate({
+    this.addtodoGql.mutate({
       addTodoInput: {
         completed: false,
         userId: 34,

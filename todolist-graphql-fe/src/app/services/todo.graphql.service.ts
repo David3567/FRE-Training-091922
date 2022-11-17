@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { BehaviorSubject } from 'rxjs';
@@ -21,8 +22,9 @@ export class TodoGraphqlService {
   todolist$ = this.todolistSub$.asObservable();
 
   constructor(
-    private readonly addTodoGql: AddTodoGQL,
+    private readonly addtodoGql: AddTodoGQL,
     private readonly getTodosGQL: GetTodosGQL,
+    private readonly http: HttpClient,
     private readonly apollo: Apollo
   ) { }
 
@@ -37,7 +39,7 @@ export class TodoGraphqlService {
       );
   }
   addTodo(todo: Todo) {
-    return this.addTodoGql
+    return this.addtodoGql
       .mutate({
         addTodoInput: todo,
       })
@@ -50,6 +52,7 @@ export class TodoGraphqlService {
       );
   }
   deleteTodo(id: string) {
+    console.log(id);
     return this.apollo.mutate({
       mutation: DELETE_TODO,
       variables: {
