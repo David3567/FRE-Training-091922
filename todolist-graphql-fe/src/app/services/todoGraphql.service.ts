@@ -159,27 +159,3 @@ export class AddTodoGQL extends Apollo.Mutation<
     super(apollo);
   }
 }
-
-export const DeleteTodoDocument = gql`
-  mutation DeleteTodo($input: DeleteTodoInput!) {
-    deleteTodo(input: $input) {
-      todo {
-        id
-      }
-    }
-  }
-`;
-
-@Injectable({
-  providedIn: 'root',
-})
-export class DeleteTodoGQL extends Apollo.Mutation<
-  AddTodoMutation,
-  AddTodoMutationVariables
-> {
-  override document = DeleteTodoDocument;
-
-  constructor(apollo: Apollo.Apollo) {
-    super(apollo);
-  }
-}

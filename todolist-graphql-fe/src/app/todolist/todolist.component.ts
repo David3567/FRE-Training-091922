@@ -32,5 +32,7 @@ export class TodolistComponent implements OnInit {
     this.todoService.addTodo(this.todo).subscribe();
   }
 
-  deleteTodo(id: string) { }
+  deleteTodo(id: string) {
+    this.todoService.deleteTodo(id).subscribe();
+  }
 }

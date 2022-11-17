@@ -1,9 +1,18 @@
-
 import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { AddTodoGQL, GetTodosGQL, Todo, DeleteTodoInput } from './todoGraphql.service';
+import { AddTodoGQL, GetTodosGQL, Todo } from './todoGraphql.service';
+
+const DELETE_TODO = gql`
+  mutation DeleteTodo($input: Int!) {
+    deleteTodo(input: {id: $input}) {
+      todo {
+        id
+      }
+    }
+  }
+`
 
 @Injectable({ providedIn: 'root' })
 export class TodoGraphqlService {
@@ -40,23 +49,18 @@ export class TodoGraphqlService {
         })
       );
   }
-  // deleteTodo(id: string) {
-  //   return this.apollo.mutate({
-  //     mutation: gql`
-  //       mutation DeleteTodo($input: DeleteTodoInput!) {
-  //         deleteTodo(input: $input) {
-  //           todo {
-  //             id
-  //           }
-  //         }
-  //       }
-  //     `
-  //   }).pipe(
-  //     tap((gqldata) => {
-  //       const id = gqldata.data.deleteTodo.todo.id
-  //       this.todolist = this.todolist.filter((todo: any) => +todo.id !== +id);
-  //       this.todolistSub$.next(this.todolist);
-  //     })
-  //   )
-  // }
+  deleteTodo(id: string) {
+    return this.apollo.mutate({
+      mutation: DELETE_TODO,
+      variables: {
+        input: +id
+      }
+    }).pipe(
+      tap((gqldata) => {
+        console.log(gqldata);
+        // this.todolist = this.todolist.filter((todo: any) => +todo.id !== +id);
+        // this.todolistSub$.next(this.todolist);
+      })
+    )
+  }
 }
