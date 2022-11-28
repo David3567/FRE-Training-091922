@@ -16,12 +16,12 @@ export class TodolistService {
   constructor(private readonly http: HttpClient) {}
 
   getTodos(): Observable<Todo[]> {
-    return this.http.get(this.baseUrl).pipe(
-      <any>tap((todos: Todo[]) => {
+    return this.http.get<Todo[]>(this.baseUrl).pipe(
+      tap((todos: Todo[]) => {
         this.todolist = todos;
         this.todolist$.next(this.todolist);
       })
-    ) as Observable<Todo[]>;
+    );
   }
   deleteTodo(id: string) {
     return this.http.delete([this.baseUrl, id].join('/')).pipe(

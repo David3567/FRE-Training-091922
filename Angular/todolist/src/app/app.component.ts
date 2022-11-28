@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  title = 'todolist';
+
   counter: number = 0;
   isDisabled: boolean = false;
   inputdata = 'David';

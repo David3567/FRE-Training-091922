@@ -1,4 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TodolistService } from '../services/todolist.service';
 
 import { TodolistComponent } from './todolist.component';
 
@@ -8,9 +11,10 @@ describe('TodolistComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TodolistComponent ]
-    })
-    .compileComponents();
+      declarations: [TodolistComponent],
+      imports: [HttpClientTestingModule],
+      providers: [TodolistService],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TodolistComponent);
     component = fixture.componentInstance;
