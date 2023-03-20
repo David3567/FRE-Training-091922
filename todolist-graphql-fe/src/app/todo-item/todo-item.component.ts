@@ -23,6 +23,6 @@ export class TodoItemComponent {
   constructor() { }
 
   handleDelete() {
-    this.triggerDelete.emit(this.todo?.id);
+    this.triggerDelete.emit(this.todo.id);
   }
 }
