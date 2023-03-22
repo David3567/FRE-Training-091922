@@ -16,6 +16,7 @@ describe('TodolistService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
+      providers: [TodolistService]
     });
 
     service = TestBed.inject(TodolistService);
@@ -42,5 +43,21 @@ describe('TodolistService', () => {
 
     expect(req.request.method).toEqual('GET');
     expect(req.request.url).toBe(baseUrl);
+  });
+
+  it('should have delete method', () => {
+    spyOn(service, 'deleteTodo').and.returnValue(of());
+
+    service.deleteTodo('5').subscribe();
+    expect(service.deleteTodo).toHaveBeenCalled();
+  });
+
+  it('should send a request by baseUrl', () => {
+    service.deleteTodo('4').subscribe((data) => console.log('res from backend'));
+
+    const req = httpTestingController.expectOne(baseUrl + '/4');
+
+    expect(req.request.method).toEqual('DELETE');
+    expect(req.request.url).toBe(baseUrl + '/4');
   });
 });
